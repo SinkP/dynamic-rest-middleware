@@ -1,16 +1,16 @@
-interface Filter {
+export interface Filter {
   field: string;
   value: string;
   mod?: string;
   not?: true;
 }
 
-interface Sort {
+export interface Sort {
   field: string;
   not?: true;
 }
 
-interface Options {
+export interface Options {
   url: string;
   filters?: Filter[];
   include?: string[];

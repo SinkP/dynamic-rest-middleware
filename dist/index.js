@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEntityIndex = exports.getEntity = exports.getUrl = void 0;
+exports.getUrl = void 0;
 function setUrl(array, callback) {
     let result = [];
     for (const item of array) {
@@ -36,25 +36,3 @@ function getUrl(options) {
     return url;
 }
 exports.getUrl = getUrl;
-function getEntity(entities, id) {
-    if (!entities || typeof entities !== 'object') {
-        return null;
-    }
-    for (const entity of entities) {
-        if (entity.id === id) {
-            return entity;
-        }
-    }
-    return null;
-}
-exports.getEntity = getEntity;
-function getEntityIndex(entities, id) {
-    let result = -1;
-    for (let i = 0; i < entities.length; i++) {
-        if (entities[i].id === id) {
-            result = i;
-        }
-    }
-    return result;
-}
-exports.getEntityIndex = getEntityIndex;
