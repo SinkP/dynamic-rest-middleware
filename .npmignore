@@ -1,2 +1,8 @@
 tsconfig.json
+tests
+babel.config.js
+jest.config.ts
+.eslintrc.js
 src
+.gitignore
+
