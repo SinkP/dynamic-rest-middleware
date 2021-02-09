@@ -33,7 +33,7 @@ export function getUrl(options: Options): string {
 
   if (options.filters && options.filters.length) {
     url += setUrl(options.filters, (filter: Filter) => {
-      return `filter{${filter.not ? '-' : ''}${filter.field}${filter.mod ? '.' + filter.mod : ''}}=${filter.value}`
+      return `filter{${filter.not ? '-' : ''}${filter.field}${filter.mod ? '.' + filter.mod : ''}}=${encodeURIComponent(filter.value)}`
     })
   }
 
