@@ -15,5 +15,7 @@ export interface Options {
     exclude?: string[];
     sort?: Sort[];
     excludeAll?: true;
+    pageSize?: number;
+    page?: number;
 }
 export declare function getUrl(options: Options): string;

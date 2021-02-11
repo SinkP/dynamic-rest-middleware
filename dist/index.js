@@ -6,33 +6,46 @@ function setUrl(array, callback) {
     for (const item of array) {
         result.push(callback(item));
     }
-    return result.join('&') + '&';
+    return result.join('&');
 }
 function getUrl(options) {
-    let url = options.url + '?';
+    let url = [options.url + '?'];
     if (options.filters && options.filters.length) {
-        url += setUrl(options.filters, (filter) => {
-            return `filter{${filter.not ? '-' : ''}${filter.field}${filter.mod ? '.' + filter.mod : ''}}=${filter.value}`;
-        });
+        url.push(setUrl(options.filters, (filter) => {
+            return `filter{${filter.not ? '-' : ''}${filter.field}${filter.mod ? '.' + filter.mod : ''}}=${encodeURIComponent(filter.value)}`;
+        }));
     }
+    ;
     if (options.include && options.include.length) {
-        url += setUrl(options.include, (include) => {
+        url.push(setUrl(options.include, (include) => {
             return `include[]=${include}`;
-        });
+        }));
     }
+    ;
     if (options.exclude && options.exclude.length) {
-        url += setUrl(options.exclude, (exclude) => {
+        url.push(setUrl(options.exclude, (exclude) => {
             return `exclude[]=${exclude}`;
-        });
+        }));
     }
+    ;
     if (options.sort && options.sort.length) {
-        url += setUrl(options.sort, (sort) => {
+        url.push(setUrl(options.sort, (sort) => {
             return `sort[]=${sort.not ? '-' : ''}${sort.field}`;
-        });
+        }));
     }
+    ;
     if (options.excludeAll) {
-        url += 'exclude[]=*&';
+        url.push('exclude[]=*');
     }
-    return url;
+    ;
+    if (options.page) {
+        url.push(`page=${options.page}`);
+    }
+    ;
+    if (options.pageSize) {
+        url.push(`page_size=${options.pageSize}`);
+    }
+    ;
+    return url.join('&');
 }
 exports.getUrl = getUrl;

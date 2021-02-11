@@ -10,7 +10,7 @@ function checkCorrectData() {
 }
 
 beforeAll(async () => {
-  response = await axios.get(getUrl({ url: 'http://bychords.com:8000/api/admin/songs' }));
+  response = await axios.get(getUrl({ url: 'https://bychords.com:8000/api/admin/songs' }));
 });
 
 test('getUrl is defined', async () => {
@@ -29,7 +29,7 @@ test('It response some request', async () => {
 
 test('Testing filter by id', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'id',
@@ -45,7 +45,7 @@ test('Testing filter by id', async () => {
 
 test('Testing filter by performer', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'performer',
@@ -63,7 +63,7 @@ test('Testing filter by performer', async () => {
 
 test('Testing filter by performer and by id', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'performer',
@@ -88,7 +88,7 @@ test('Testing filter by performer and by id', async () => {
 
 test('Testing filter by title with modificator ', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'title',
@@ -103,7 +103,7 @@ test('Testing filter by title with modificator ', async () => {
 
 test('Testing filter with "not" modificator ', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'title',
@@ -120,7 +120,7 @@ test('Testing filter with "not" modificator ', async () => {
 
 test('Testing exclude all fields', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     excludeAll: true,
   }));
 
@@ -133,7 +133,7 @@ test('Testing exclude all fields', async () => {
 
 test('Testing include', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [
       {
         field: 'performer',
@@ -154,7 +154,7 @@ test('Testing include', async () => {
 
 test('Testing many includes', async () => {
   response = await axios.get(getUrl({
-    url: 'http://bychords.com:8000/api/admin/songs',
+    url: 'https://bychords.com:8000/api/admin/songs',
     filters: [ 
       {
         field: 'performer',

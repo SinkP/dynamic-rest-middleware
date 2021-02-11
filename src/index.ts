@@ -17,6 +17,8 @@ export interface Options {
   exclude?: string[];
   sort?: Sort[];
   excludeAll?: true;
+  pageSize?: number;
+  page?: number;
 }
 
 function setUrl<T>(array: T[], callback: (value: T) => string): string {
@@ -25,39 +27,47 @@ function setUrl<T>(array: T[], callback: (value: T) => string): string {
     result.push(callback(item));
   }
 
-  return result.join('&') + '&';
+  return result.join('&');
 }
 
 export function getUrl(options: Options): string {
-  let url: string = options.url + '?';
+  let url: string[] = [options.url + '?'];
 
   if (options.filters && options.filters.length) {
-    url += setUrl(options.filters, (filter: Filter) => {
+    url.push(setUrl(options.filters, (filter: Filter) => {
       return `filter{${filter.not ? '-' : ''}${filter.field}${filter.mod ? '.' + filter.mod : ''}}=${encodeURIComponent(filter.value)}`
-    })
-  }
+    }));
+  };
 
   if (options.include && options.include.length) {
-    url += setUrl(options.include, (include: string) => {
+    url.push(setUrl(options.include, (include: string) => {
       return `include[]=${include}`;
-    })
-  }
+    }));
+  };
   
   if (options.exclude && options.exclude.length) {
-    url += setUrl(options.exclude, (exclude: string) => {
+    url.push(setUrl(options.exclude, (exclude: string) => {
       return `exclude[]=${exclude}`;
-    })
-  }
+    }));
+  };
 
   if (options.sort && options.sort.length) {
-    url += setUrl(options.sort, (sort: Sort) => {
+    url.push(setUrl(options.sort, (sort: Sort) => {
       return `sort[]=${sort.not ? '-' : ''}${sort.field}`;
-    })
-  }
+    }));
+  };
 
   if (options.excludeAll) {
-    url += 'exclude[]=*&'
-  }
+    url.push('exclude[]=*');
+  };
 
-  return url;
+  if (options.page) {
+    url.push(`page=${options.page}`);
+  };
+
+  if (options.pageSize) {
+    url.push(`page_size=${options.pageSize}`);
+  };
+
+  return url.join('&');
 }
